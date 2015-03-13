@@ -1,13 +1,12 @@
 {
   "name": "markdown-it-container",
   "main": "dist/markdown-it-container.js",
-  "homepage": "https://github.com/markdown-it/markdown-it-mark",
-  "description": "<mark> tag for markdown-it markdown parser.",
+  "homepage": "https://github.com/markdown-it/markdown-it-container",
+  "description": "Plugin to create block-level custom containers for markdown-it markdown parser",
   "keywords": [
     "markdown-it-plugin",
     "markdown-it",
-    "markdown",
-    "mark"
+    "markdown"
   ],
   "license": "MIT",
   "ignore": [
