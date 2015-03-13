@@ -4,15 +4,15 @@
 
 
 module.exports = function container_plugin(md, name, options) {
+
   function validateDefault(params) {
     return params.trim().split(' ', 2)[0] === name;
   }
 
   function renderDefault(tokens, idx, _options, env, self) {
-    if (tokens[idx].nesting === 1) {
 
-      // add a class to the opening tag
-      //
+    // add a class to the opening tag
+    if (tokens[idx].nesting === 1) {
       tokens[idx].attrPush([ 'class', name ]);
     }
 

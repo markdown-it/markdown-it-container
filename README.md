@@ -6,7 +6,7 @@
 
 > Plugin for creating block-level custom containers for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
 
-With this plugin you can create containers like:
+With this plugin you can create block containers like:
 
 ```
 ::: warning
@@ -14,7 +14,18 @@ With this plugin you can create containers like:
 :::
 ```
 
-And specify how they should be rendered.
+.... and specify how they should be rendered. If no renderer defined, `<div>` with
+container name class will be created:
+
+```html
+<div class="warning">
+<em>here be dragons</em>
+</div>
+```
+
+Markup is the same as for [fenced code blocks](http://spec.commonmark.org/0.18/#fenced-code-blocks).
+Difference is, that marker use another character and content is rendered as markdown markup.
+
 
 ## Installation
 
@@ -25,27 +36,23 @@ $ npm install markdown-it-container --save
 $ bower install markdown-it-container --save
 ```
 
+
 ## API
 
 ```js
-var md = require('markdown-it')();
-var container = require('markdown-it-container');
-md.use(container, name [, options]);
+var md = require('markdown-it')()
+            .use(require('markdown-it-container'), name [, options]);
 ```
 
- - __name__ (String) - the name of the rule
+Params:
 
- - __options__
+- __name__ (String) - container name (mandatory)
+- __options__
+   - __validate__ - optional, function to validate tail after opening marker, should
+     return `true` on success.
+   - __render__ - optional, renderer function for opening/closing tokens.
+   - __marker__ - optional (`:`), character to use in delimiter.
 
-   - __marker__ (String, default=":") - a character used to determine where
-     the block starts and ends. Three or more markers will start the block.
-
-   - __validate__ (Function) - function used to validate infostring (that's
-     the thing after marker), it should return boolean value depending on 
-     whether it's a valid tag or not.
-
-   - __render__ (Function) - function used to render output, it works like
-     all the other markdown-it renders.
 
 ## Example
 
@@ -53,8 +60,6 @@ md.use(container, name [, options]);
 var md = require('markdown-it')();
 
 md.use(require('markdown-it-container'), 'spoiler', {
-  marker: ':',
-
   validate: function(params) {
     return params.trim().match(/^spoiler\s+(.*)$/);
   },
@@ -66,7 +71,7 @@ md.use(require('markdown-it-container'), 'spoiler', {
       // opening tag
       return '<details><summary>' + m[1] + '</summary>\n';
 
-    } else if (tokens[idx].nesting === -1) {
+    } else {
       // closing tag
       return '</details>\n';
     }
