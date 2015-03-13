@@ -46,8 +46,8 @@ var md = require('markdown-it')()
 
 Params:
 
-- __name__ (String) - container name (mandatory)
-- __options__
+- __name__ - container name (mandatory)
+- __options:__
    - __validate__ - optional, function to validate tail after opening marker, should
      return `true` on success.
    - __render__ - optional, renderer function for opening/closing tokens.
@@ -60,6 +60,7 @@ Params:
 var md = require('markdown-it')();
 
 md.use(require('markdown-it-container'), 'spoiler', {
+
   validate: function(params) {
     return params.trim().match(/^spoiler\s+(.*)$/);
   },
