@@ -274,3 +274,14 @@ yyy</p>
 :::</p>
 .
 
+Regression test, tabs
+.
+::: name
+xxx
+	:::
+.
+<div class="name">
+<p>xxx
+	:::</p>
+</div>
+.

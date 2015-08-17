@@ -86,7 +86,7 @@ describe('api', function () {
     it('should not trim params', function () {
       require('markdown-it')()
         .use(require('../'), 'name', {
-          validate: function (p) { assert.equal(p, '     name '); return 1; }
+          validate: function (p) { assert.equal(p, ' \tname '); return 1; }
         })
        .parse('::: \tname \ncontent\n:::\n', {});
     });

@@ -75,7 +75,7 @@ module.exports = function container_plugin(md, name, options) {
       start = state.bMarks[nextLine] + state.tShift[nextLine];
       max = state.eMarks[nextLine];
 
-      if (start < max && state.tShift[nextLine] < state.blkIndent) {
+      if (start < max && state.sCount[nextLine] < state.blkIndent) {
         // non-empty line with negative indent should stop the list:
         // - ```
         //  test
@@ -84,7 +84,7 @@ module.exports = function container_plugin(md, name, options) {
 
       if (marker_char !== state.src.charCodeAt(start)) { continue; }
 
-      if (state.tShift[nextLine] - state.blkIndent >= 4) {
+      if (state.sCount[nextLine] - state.blkIndent >= 4) {
         // closing fence should be indented less than 4 spaces
         continue;
       }
