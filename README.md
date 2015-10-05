@@ -6,6 +6,8 @@
 
 > Plugin for creating block-level custom containers for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
 
+__v2.+ requires `markdown-it` v5.+, see changelog.__
+
 With this plugin you can create block containers like:
 
 ```
