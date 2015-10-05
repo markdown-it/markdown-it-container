@@ -1,4 +1,4 @@
-/*! markdown-it-container 1.0.0 https://github.com//markdown-it/markdown-it-container @license MIT */(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.markdownitContainer = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*! markdown-it-container 2.0.0 https://github.com//markdown-it/markdown-it-container @license MIT */(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.markdownitContainer = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 // Process block-level custom containers
 //
 'use strict';
@@ -76,7 +76,7 @@ module.exports = function container_plugin(md, name, options) {
       start = state.bMarks[nextLine] + state.tShift[nextLine];
       max = state.eMarks[nextLine];
 
-      if (start < max && state.tShift[nextLine] < state.blkIndent) {
+      if (start < max && state.sCount[nextLine] < state.blkIndent) {
         // non-empty line with negative indent should stop the list:
         // - ```
         //  test
@@ -85,7 +85,7 @@ module.exports = function container_plugin(md, name, options) {
 
       if (marker_char !== state.src.charCodeAt(start)) { continue; }
 
-      if (state.tShift[nextLine] - state.blkIndent >= 4) {
+      if (state.sCount[nextLine] - state.blkIndent >= 4) {
         // closing fence should be indented less than 4 spaces
         continue;
       }
