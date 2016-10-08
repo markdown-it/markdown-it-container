@@ -90,6 +90,44 @@ console.log(md.render('::: spoiler click me\n*content*\n:::\n'));
 // </details>
 ```
 
+## Example with markdown-it-decorate
+then you can use [markdown-it-decorate](https://github.com/rstacruz/markdown-it-decorate) syntax like '#my-id.my-class title="hello"'
+
+```js
+var md = require('markdown-it')();
+
+md.use(require('markdown-it-decorate'))
+  .use(require('markdown-it-container'), 'decorate' , {
+            validate: function(params) {
+                return params.trim().match(/^(.*)$/);
+            },
+
+            render: function (tokens, idx) {
+                var m = tokens[idx].info.trim().match(/^(.*)$/);
+
+                if (tokens[idx].nesting === 1) {
+                    // opening tag
+                    var fake=md.render('TMP_FOR_CONTAINER<!-- {'+ m[1]+'} -->')
+console.log(fake)
+                    return '<div '+ fake.substring(3,  fake.indexOf('>'))+'>\n';
+
+                } else {
+                    // closing tag
+                    return '</div>\n';
+                }
+            }
+   })
+  
+
+console.log(md.render('::: #n.ok title=hello\nccc\n:::'));
+
+// Output:
+// <div id="n" class="ok" title="hello">
+// <p>ccc</p>
+// </div>
+
+```
+
 ## License
 
 [MIT](https://github.com/markdown-it/markdown-it-container/blob/master/LICENSE)
