@@ -80,7 +80,9 @@ describe('api', function () {
         })
        .parse(':\n::\n:::\n::::\n:::::\n', {});
 
-      assert.equal(count, 3);
+      // called by paragraph and lheading 3 times each
+      assert(count > 0);
+      assert(count % 3 === 0);
     });
 
     it('should not trim params', function () {
