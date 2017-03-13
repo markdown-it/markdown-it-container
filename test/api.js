@@ -6,7 +6,7 @@ var assert = require('assert');
 /*eslint-env mocha*/
 
 describe('api', function () {
-  it('renderer', function() {
+  it('container renderer', function() {
     var res = require('markdown-it')()
                 .use(require('../'), 'spoiler', {
                   render: function (tokens, idx) {
@@ -18,6 +18,18 @@ describe('api', function () {
                 .render('::: spoiler\n*content*\n:::\n');
 
     assert.equal(res, '<details><summary>click me</summary>\n<p><em>content</em></p>\n</details>\n');
+  });
+
+  it('content renderer', function() {
+    var res = require('markdown-it')()
+                .use(require('../'), 'spoiler', {
+                  content: function (tokens, idx) {
+                    return '<mark>' + tokens[idx].markup + '</mark>';
+                  }
+                })
+                .render('::: spoiler\n*content*\n*with spoiler*\n:::\n');
+
+    assert.equal(res, '<div class="spoiler">\n<mark>\n*content*\n*with spoiler*\n</mark></div>\n');
   });
 
   it('2 char marker', function () {
