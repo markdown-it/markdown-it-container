@@ -6,7 +6,7 @@ var assert = require('assert');
 /*eslint-env mocha*/
 
 describe('coverage', function () {
-  it('marker coverage', function() {
+  it('marker coverage', function () {
     var tok = require('markdown-it')()
                 .use(require('../'), 'fox', {
                   marker: 'foo',

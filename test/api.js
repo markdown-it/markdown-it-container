@@ -6,7 +6,7 @@ var assert = require('assert');
 /*eslint-env mocha*/
 
 describe('api', function () {
-  it('renderer', function() {
+  it('renderer', function () {
     var res = require('markdown-it')()
                 .use(require('../'), 'spoiler', {
                   render: function (tokens, idx) {
