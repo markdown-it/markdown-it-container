@@ -13,7 +13,7 @@ module.exports = function container_plugin(md, name, options) {
 
     // add a class to the opening tag
     if (tokens[idx].nesting === 1) {
-      tokens[idx].attrPush([ 'class', name ]);
+      tokens[idx].attrJoin('class', name);
     }
 
     return self.renderToken(tokens, idx, _options, env, self);
