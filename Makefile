@@ -31,7 +31,7 @@ browserify:
 		./node_modules/.bin/browserify ./ -s markdownitContainer \
 		) > dist/markdown-it-container.js
 	# Minify
-	./node_modules/.bin/uglifyjs dist/markdown-it-container.js -b beautify=false,ascii-only=true -c -m \
+	./node_modules/.bin/uglifyjs dist/markdown-it-container.js -b beautify=false -c -m \
 		--preamble "/*! ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} @license MIT */" \
 		> dist/markdown-it-container.min.js
 

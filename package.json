@@ -13,13 +13,13 @@
     "markdown"
   ],
   "devDependencies": {
-    "browserify": "*",
-    "coveralls": "^2.11.2",
-    "eslint": "^3.5.0",
-    "istanbul": "*",
+    "browserify": "^16.5.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.1.0",
+    "istanbul": "^0.4.5",
     "markdown-it": "markdown-it/markdown-it",
-    "markdown-it-testgen": "~0.1.0",
-    "mocha": "*",
-    "uglify-js": "*"
+    "markdown-it-testgen": "^0.1.6",
+    "mocha": "^7.2.0",
+    "uglify-js": "^3.9.4"
   }
 }

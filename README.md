@@ -54,6 +54,7 @@ Params:
      return `true` on success.
    - __render__ - optional, renderer function for opening/closing tokens.
    - __marker__ - optional (`:`), character to use in delimiter.
+   - __min_markers__ - optional (`3`), character repeated number to use in delimiter.
 
 
 ## Example
