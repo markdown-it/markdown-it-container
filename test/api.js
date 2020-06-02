@@ -92,5 +92,16 @@ describe('api', function () {
         })
         .parse('::: \tname \ncontent\n:::\n', {});
     });
+
+    it('should allow analyze mark', function () {
+      var md = require('markdown-it')()
+        .use(require('../'), 'name', {
+          validate: function (__, mark) { return mark.length >= 4; }
+        });
+
+      assert.equal(md.render(':::\nfoo\n:::\n'), '<p>:::\nfoo\n:::</p>\n');
+      assert.equal(md.render('::::\nfoo\n::::\n'), '<div class="name">\n<p>foo</p>\n</div>\n');
+    });
+
   });
 });
