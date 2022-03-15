@@ -1,4 +1,4 @@
-# markdown-it-container
+# markdown-it-container-without-name
 
 [![Build Status](https://img.shields.io/travis/markdown-it/markdown-it-container/master.svg?style=flat)](https://travis-ci.org/markdown-it/markdown-it-container)
 [![NPM version](https://img.shields.io/npm/v/markdown-it-container.svg?style=flat)](https://www.npmjs.org/package/markdown-it-container)

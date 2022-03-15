@@ -7,35 +7,36 @@ module.exports = function container_plugin(md, name, options) {
 
   // Second param may be useful if you decide
   // to increase minimal allowed marker length
-  function validateDefault(params/*, markup*/) {
+  function validateDefault(params/*, markup */) {
     return params.trim().split(' ', 2)[0] === name;
   }
 
   function renderDefault(tokens, idx, _options, env, slf) {
 
     // add a class to the opening tag
-    if (tokens[idx].nesting === 1) {
-      tokens[idx].attrJoin('class', name);
-    }
+    // Don't add class to opening tag
+    // if (tokens[idx].nesting === 1) {
+    //   tokens[idx].attrJoin('class', name);
+    // }
 
     return slf.renderToken(tokens, idx, _options, env, slf);
   }
 
   options = options || {};
 
-  var min_markers = 3,
-      marker_str  = options.marker || ':',
-      marker_char = marker_str.charCodeAt(0),
-      marker_len  = marker_str.length,
-      validate    = options.validate || validateDefault,
-      render      = options.render || renderDefault;
+  const min_markers = 3;
+  const marker_str  = options.marker || ':';
+  const marker_char = marker_str.charCodeAt(0);
+  const marker_len  = marker_str.length;
+  const validate    = options.validate || validateDefault;
+  const render      = options.render || renderDefault;
 
   function container(state, startLine, endLine, silent) {
-    var pos, nextLine, marker_count, markup, params, token,
-        old_parent, old_line_max,
-        auto_closed = false,
-        start = state.bMarks[startLine] + state.tShift[startLine],
-        max = state.eMarks[startLine];
+    let pos; let nextLine; let marker_count; let markup; let params; let token;
+    let old_parent; let old_line_max;
+    let auto_closed = false;
+    let start = state.bMarks[startLine] + state.tShift[startLine];
+    let max = state.eMarks[startLine];
 
     // Check out the first character quickly,
     // this should filter out most of non-containers
@@ -56,7 +57,9 @@ module.exports = function container_plugin(md, name, options) {
 
     markup = state.src.slice(start, pos);
     params = state.src.slice(pos, max);
-    if (!validate(params, markup)) { return false; }
+
+    // Don't validate
+    // if (!validate(params, markup)) { return false; }
 
     // Since start is found, we can report success here in validation mode
     //
@@ -119,6 +122,7 @@ module.exports = function container_plugin(md, name, options) {
     state.lineMax = nextLine;
 
     token        = state.push('container_' + name + '_open', 'div', 1);
+    token.attrJoin('class', params.trim().split(/\n/, 2)[0]);
     token.markup = markup;
     token.block  = true;
     token.info   = params;
